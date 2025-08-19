@@ -1,0 +1,133 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../../asset/scss/helper/function';
+@use '../../asset/scss/helper/mixin';
+@use '../../asset//scss/helper/const';
+@use '../../asset/scss/helper/var';
+
+
+/**
+ * 게시판 > 갤러리형 (유료)
+ * 이벤트
+ */
+
+
+/** 이벤트 */
+.m_event {
+	// 이벤트 리스트 탭
+	> .mm_tab_menu {
+		margin-left: 24px;
+		padding-top: 16px;
+	}
+
+	&-menu {
+		@include mixin.clearfix;
+
+		.btn_experience {
+			float: right;
+			margin: 15px 0 16px;
+			padding: 0 12px;
+			height: 32px;
+			border-radius: 8px;
+			background-color: #f2f4f6;
+			@include mixin.font(var(--color_sub) '1.3rem/3.4rem');
+
+
+			.ico_link {
+				margin: 9px 0 0 4px;
+
+				&::before {
+					width: 14px;
+					height: 14px;
+					background-color: var(--color_sub);
+				}
+			}
+
+			+ .mm_text-none {
+				padding: 90px 0 70px;
+			}
+		}
+	}
+
+	&-list {
+		li {
+			&:nth-child(n+2) {
+				margin-top: 40px;
+			}
+
+			a {
+				display: block;
+			}
+		}
+
+		.image_banner {
+			position: relative;
+			padding-top: 70.94801%;
+			width: 100%;
+			border-radius: 8px;
+		}
+
+		figure {
+			figcaption {
+				margin-top: 17px;
+				padding: 0 2px;
+				@include mixin.font('1.3rem/1.9rem');
+
+				.text_main {
+					@include mixin.text-ellipsis(1);
+					@include mixin.font(#222 600 '1.8rem/2.6rem');
+				}
+
+				.text_sub {
+					margin-top: 5px;
+					@include mixin.text-ellipsis(1);
+					@include mixin.font(#444 '1.5rem/2.4rem');
+				}
+
+				.text_period {
+					margin-top: 14px;
+					@include mixin.font(#888 '1.4rem/2rem');
+				}
+			}
+		}
+
+		&#{function.escape('.T=skeleton')} {
+			p {
+				height: 14px;
+				background-color: var.$skeleton_color_base;
+				font-size: 0;
+			}
+
+			.image_banner {
+				background-color: var.$skeleton_color_base;
+			}
+
+			.text_main {
+				margin-top: 15px;
+				width: 60%;
+				height: 18px;
+			}
+
+			.text_sub {
+				position: relative;
+				margin-top: 10px;
+			}
+
+			.text_period {
+				margin-top: 15px;
+				width: 40%;
+			}
+		}
+
+		+ .mm_pagination {
+			margin: 56px 0 40px;
+		}
+	}
+
+	&-hero {
+		.image_banner {
+			width: 100%;
+		}
+	}
+}

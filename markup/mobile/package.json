@@ -1,0 +1,12 @@
+{
+	"name": "@markup/mobile",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"mode": "vite build --mode markup",
+		"build": "vite build",
+		"preview": "vite preview"
+	}
+}

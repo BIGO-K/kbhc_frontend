@@ -1,0 +1,42 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 사이즈 필터(FIT, 슈즈)
+ * 검색 필터
+ */
+
+/** 필터 */
+.mm_filter-tab {
+	// FIT
+	&-fit {
+		.mm_check-list {
+			.mm_form-check {
+				.text_label {
+					color: var(--color_text_base);
+				}
+			}
+		}
+	}
+
+	// 슈즈
+	&-shoes {
+		.mm_check-list {
+			ul {
+				margin: -8px 0 0 -8px;
+
+				> li {
+					float: left;
+					margin-top: 0 !important;
+					padding: 8px 0 0 8px;
+					width: 50%;
+				}
+			}
+		}
+	}
+}

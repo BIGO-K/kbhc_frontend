@@ -1,0 +1,205 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 컴포넌트
+ * 섹션, 영역, 스크롤러, 라인, 싱커, 플렉스 등 기본 공통영역
+ */
+
+
+/** 숨김(vue에서 속성으로 제어) */
+[data-hidden] {
+	visibility: hidden;
+}
+
+[data-none] {
+	display: none;
+}
+
+/** 기본형 */
+// 블록
+.mm_block,
+.mui_block {
+	display: block;
+}
+
+// 인라인블록
+.mm_inline,
+.mui_inline {
+	display: inline-block;
+}
+
+// 왼쪽정렬
+.mm_lside,
+.mui_lside {
+	float: left;
+	@include mixin.clearfix;
+}
+
+// 오른쪽정렬
+.mm_rside,
+.mui_rside {
+	float: right;
+	@include mixin.clearfix;
+}
+
+// 영역채움
+.mm_full,
+.mui_full {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: auto;
+	height: auto;
+}
+
+// 가변
+.mm_fluid,
+.mui_fluid {
+	@include mixin.fluid-media(100%);// 100% = 1:1, 56.25% = 16:9
+}
+
+/** 스크롤러 */
+.mm_scroller,
+.mui_scroller {
+	overflow: hidden auto;
+	height: 100%;
+
+	&#{function.escape('.T=x')} {
+		overflow: auto hidden;
+		width: 100%;
+		height: auto;
+
+		&::-webkit-scrollbar {
+			display: none;// 모바일에서 가로스크롤 숨기기
+		}
+	}
+
+	&#{function.escape('.T=xy')} {
+		overflow: auto;
+	}
+}
+
+/** 플렉스 (독립사용) */
+@include mixin.is('.mm_flex, .mui_flex') {
+	display: flex;
+
+	// 플렉스 column
+	&#{function.escape('.T=column')} {
+		display: flex;
+		flex-direction: column;
+		min-height: 100%;
+	}
+
+	// 플렉스 자식요소 사이즈 비율
+	&#{function.escape('.T=equal')} {
+		> * {
+			flex: 1;
+			width: auto;
+			height: 100%;
+
+			@include mixin.is('a, button', '>') {
+				display: block;
+				width: 100%;
+				text-align: center;
+
+				&:not(.mm_btn, .mui_btn) {
+					height: 100%;
+				}
+			}
+		}
+	}
+
+	// 플렉스 자식요소 사이즈 자동
+	&#{function.escape('.T=auto')} {
+		> * {
+			flex: auto;
+			width: auto;
+			height: 100%;
+
+			@include mixin.is('a, button', '>') {
+				display: block;
+				text-align: center;
+
+				&:not(.mm_btn, .mui_btn) {
+					height: 100%;
+				}
+			}
+		}
+	}
+}
+
+// 플렉스 자식요소
+.mm_flex,
+.mui_flex {
+	// 사이즈 비율
+	&-equal {
+		flex: 1
+	}
+
+	// 사이즈 자동
+	&-auto {
+		flex: auto
+	}
+}
+
+/** 블록 컨테이너 */
+.mm_mui {
+	display: flex;
+	justify-content: center;
+
+	> * {
+		width: auto;
+		height: 100%;
+
+		@include mixin.is('a, button', '>') {
+			display: block;
+			// text-align: center;
+
+			&:not(.mui_btn) {
+				height: 100%;
+			}
+		}
+	}
+
+	// w6
+	&#{function.escape('.T=full')} {
+		> [data-mui] {
+			width: 100%;
+		}
+	}
+
+	// 조합형
+	> [data-mui] + [data-mui] {
+		margin-left: const.$grid_mo_column_gutter;
+	}
+
+	+ .mm_mui {
+		margin-top: const.$container_mo_gutter;
+	}
+}
+
+/** 이너 */
+.mm_inner {
+	@include mixin.clearfix;
+	position: relative;
+	padding: 0 24px;
+}
+
+/** 라인 */
+.mm_line {
+	border-bottom: 8px solid #eee;
+
+	@include mixin.is('hr', '&') {
+		height: 0;
+		@include mixin.font('0/1');
+	}
+}

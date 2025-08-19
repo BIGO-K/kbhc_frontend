@@ -1,0 +1,366 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 기획전, 이벤트, 스팟성 테마관
+ */
+
+/** 이벤트상세 공통 */
+.mm_event {
+	// 관련정보
+	&-head {
+		padding: 28px 24px 24px;
+		border-bottom: 1px solid #eee;
+
+		> h2 {
+			padding-right: 42px;
+			@include mixin.font(600 '2rem/2.8rem');
+		}
+
+		// SNS 공유
+		.btn_sns-share {
+			position: absolute;
+			z-index: 1;
+			top: 13px;
+			right: 9px;
+			padding: 15px;
+
+			.ico_share {
+				&::before {
+					width: 26px;
+					height: 26px;
+					background-color: #888;
+				}
+			}
+
+			+ .mm_sns {
+				display: none;
+			}
+		}
+	}
+
+	&-content {
+		> .mm_scroller {
+			margin: 40px 0 56px;
+
+			.mm_product-list {
+				margin-bottom: -4px;
+			}
+		}
+
+		+ .mm_event-content {
+			margin-top: 56px;
+		}
+	}
+
+	// 이벤트 상품 그룹 앵커
+	&-anchor {
+		border-top: 1px solid #eee;
+
+		&#{function.escape('.S=anchor-sticky')} {
+			.mm_dropdown {
+				position: fixed;
+				z-index: const.$z_index_floating;
+				top: 0;
+				right: 0;
+				left: 0;
+				background-color: rgba(#fff, 0.96);
+				box-shadow: 0 4px 4px 0 rgba(#000, 0.06);
+				transform: translateY(var(--header_height_base));
+				transition: transform const.$time_fast;
+
+				#{function.escape('.S=hide')} & {
+					transform: translateY(0);
+				}
+
+				.btn_dropdown {
+					display: block;
+					padding: 0 24px;
+					height: 48px;
+					border-bottom: 1px solid #eee;
+					@include mixin.font(700 '1.6rem/5rem' left);
+
+					> .ico_dropdown {
+						right: 21px;
+
+						&::before {
+							width: 16px;
+							height: 16px;
+							background-color: #666;
+						}
+					}
+				}
+			}
+		}
+
+		.btn_dropdown {
+			display: none;
+		}
+
+		ul {
+			@include mixin.clearfix;
+
+			li {
+				float: left;
+				width: 50%;
+
+				> a {
+					display: block;
+					padding: 14px 23px 17px;
+					height: 51px;
+					border-bottom: 1px solid #eee;
+
+					b {
+						@include mixin.text-ellipsis(1);
+						@include mixin.font(#222 '1.6rem/2.4rem');
+					}
+				}
+
+				&:nth-child(odd) > a {
+					border-right: 1px solid #eee;
+				}
+			}
+		}
+	}
+
+	// 상품 그룹 목록
+	&-list {
+		padding: 48px 25px 0;
+
+		h3 {
+			padding: 0 0 16px;
+			@include mixin.font(#222 600 '2rem/2.8rem');
+
+			.mm_image-none {
+				&::before {
+					content: attr(data-ir);
+				}
+
+				.ico_none {
+					display: none;
+				}
+			}
+
+			> i {
+				padding-bottom: 4px;
+			}
+		}
+	}
+
+	// 댓글
+	&-reply {
+		margin-top: 36px;
+
+		@include mixin.context-before('.mm_event-content +', '.mm_event-reply') {
+			margin-top: 0;
+		}
+
+		&-write {
+			position: relative;
+			padding: 24px 0 32px;
+			border-top: 1px solid #eee;
+
+			h6 {
+				@include mixin.font(#222 600 '2rem/2.8rem');
+
+				small {
+					margin-left: 6px;
+					vertical-align: 1px;
+					@include mixin.font(#aaa 400 '1.4rem/2.6rem');
+				}
+			}
+
+			.mm_form-check {
+				position: absolute;
+				top: 3px;
+				right: 25px;
+			}
+
+			.mm_form-textarea {
+				margin-top: 19px;
+			}
+
+			.text_login {
+				margin-top: 36px;
+				@include mixin.font(#222 500 '1.6rem/2.4rem' center);
+
+				+ .mm_btn_box {
+					margin: 17px 0 20px;
+
+					.mm_btn {
+						padding: 13px 31px;
+						border-radius: 8px;
+						@include mixin.font('1.5rem/1.7rem');
+					}
+				}
+			}
+
+			.mm_btn_box {
+				margin-top: 24px;
+			}
+		}
+
+		// 댓글 리스트
+		&-list {
+			.mm_text-none {
+				border-top: 1px solid #eee;
+			}
+		}
+
+		// 댓글 아이템
+		&-item {
+			position: relative;
+			padding: 20px 24px 18px;
+			border-top: 1px solid #eee;
+			@include mixin.clearfix;
+
+			&#{function.escape('.T=item-my')} {
+				background-color: #f8f8f8;
+
+				.mm_form-check {
+					float: left;
+					@include mixin.font(#26282c '1.6rem/2.4rem');
+				};
+
+				.mm_btn_box {
+					float: right;
+					margin-top: 20px;
+					text-align: right;
+
+					@include mixin.context-before('.mm_form-textarea ~') {
+						margin-top: 14px;
+					}
+
+					> * {
+						position: relative;
+						margin: 0;
+						@include mixin.font(#888 '1.4rem/2rem');
+
+						&::after {
+							position: absolute;
+							top: -10px;
+							right: -10px;
+							bottom: -10px;
+							left: -10px;
+							content: '';
+						}
+
+						&:nth-child(n+2) {
+							margin-left: 25px;
+
+							&::before {
+								position: absolute;
+								top: 5px;
+								left: -13px;
+								height: 10px;
+								border-left: 1px solid #ccc;
+								content: '';
+							}
+						}
+
+						.ico_delete {
+							margin: 2px 2px 0 0;
+						}
+
+						.ico_modify {
+							margin: 2px 2px 0 0;
+						}
+					}
+				}
+			}
+
+			// 작성자 정보
+			.text_user {
+				@include mixin.font(#888 '1.5rem/2rem');
+
+				.image_grade {
+					margin-right: 4px;
+					width: 20px;
+					height: 20px;
+				}
+
+				.text_tag {
+					margin: 0 0 -1px 7px;
+					padding: 0 5px;
+					height: 20px;
+					border: 1px solid var(--color_sub);
+					border-radius: 3px;
+					@include mixin.font(var(--color_sub) '1.2rem/1.9rem');
+				}
+
+				.ico_secret {
+					margin: 2px 0 0 4px;
+				}
+			}
+
+			// 댓글 본문
+			.text_reply {
+				position: relative;
+				margin-top: 13px;
+				padding-right: 23px;
+				width: 100%;
+				@include mixin.font(#444 '1.6rem/2.4rem' left);
+
+				b {
+					@include mixin.text-ellipsis(2);
+
+					br {
+						display: none;
+					}
+				}
+
+				.ico_dropdown {
+					position: absolute;
+					right: 2px;
+					bottom: 5px;
+
+					&::before {
+						width: 13px;
+						height: 15px;
+						background-color: #5c5c5c;
+					}
+				}
+
+				.ico_secret {
+					margin: 3px 0 0 3px;
+				}
+			}
+
+			// 댓글 수정
+			.mm_form-textarea {
+				margin-top: 13px;
+			}
+
+			// 작성일자
+			.text_date {
+				float: left;
+				margin-top: 20px;
+				@include mixin.font(#888 '1.4em/2rem');
+			}
+		}
+
+		// 하단 더보기
+		.mm_foot {
+			margin-top: 0;
+			padding: 28px 24px;
+			border-top: 1px solid #eee;
+
+			.mm_btn {
+				.ico_more {
+					margin: 15px 0 0 10px;
+
+					&::before {
+						width: 10px;
+						height: 12px;
+						background-color: #2b2b2b;
+					}
+				}
+			}
+		}
+	}
+}

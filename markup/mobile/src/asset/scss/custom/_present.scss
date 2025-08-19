@@ -1,0 +1,535 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 선물하기
+ * 마이페이지, 주문결제
+ */
+
+
+/** 선물 메시지 공통 */
+// 메시지 입력, 확인
+.m_present-message {
+	position: relative;
+	padding-top: 122.32415%;
+	width: 100%;
+
+	.image_card {
+		position: absolute;
+		inset: 0;
+		border-radius: 16px;
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
+
+	.mm_form-textarea {
+		position: absolute;
+		right: 9.17431%;
+		bottom: 40px;
+		left: 9.17431%;
+
+		&#{function.escape('.S=byte')} {
+			bottom: 0;
+		}
+
+		&#{function.escape('.S=text-on')} {
+			.btn_text-clear {
+				display: none;
+			}
+		}
+
+		.btn_text-clear {
+			~ label {
+				.textfield {
+					padding: 22px 24px 24px;
+					height: 140px;
+				}
+			}
+		}
+
+		.bg_text {
+			border: 0;
+			border-radius: 10px;
+		}
+
+		.text_placeholder {
+			padding: 22px 24px 24px;
+		}
+
+		.text_byte {
+			position: unset;
+			margin: 12px 0 10px;
+			width: 100%;
+			@include mixin.font(#ccc '1.3rem/1.4' center);
+
+			strong {
+				color: #fff;
+			}
+		}
+	}
+
+	.text_readonly {
+		position: absolute;
+		right: 9.17431%;
+		bottom: 40px;
+		left: 9.17431%;
+		padding: 20px 24px 24px;
+		height: 140px;
+		border: 0;
+		background-color: #fff;
+		@include mixin.font(#222 '1.5rem/2.4rem', unset);
+	}
+}
+
+// 카드리스트
+.m_present-card {
+	margin-top: 20px;
+
+	ul {
+		padding-left: 34px;
+		@include mixin.font('0', nowrap);
+
+		li {
+			display: inline-block;
+
+			&:nth-child(n+2) {
+				margin-left: 4px;
+			}
+		}
+	}
+
+	.btn_thumbnail {
+		width: 58px;
+		height: 58px;
+		border-radius: 8px;
+
+		&#{function.escape('.S=on')} {
+			padding: 2px;
+			border: 1px solid #222;
+		}
+
+		> i {
+			width: 100%;
+			height: 100%;
+			border-radius: 8px;
+		}
+	}
+}
+
+/** 선물받기 */
+#{function.escape('.L=present')} {
+	.mm_header {
+		h1 {
+			margin-top: 14px;
+			text-align: center;
+
+			&::before {
+				display: inline-block;
+				width: 101px;
+				height: 16px;
+				@include mixin.background(url('/image/common/logo_ocare.svg') '50% 50%/contain' no-repeat);
+				content: ''
+			}
+
+			b {
+				@include mixin.text-ir;
+				padding: 0 !important;
+			}
+		}
+	}
+}
+
+// 선물받기, 선물받기 완료 공통
+[class*='m_present'] {
+	.mm_title {
+		padding-bottom: 40px;
+		@include mixin.font(600 '/2.8rem');
+	}
+
+	> section {
+		padding: 28px 0 24px;
+
+		h4 {
+			padding-bottom: 22px;
+			@include mixin.font(600 '2rem');
+		}
+
+		.mm_product-list#{function.escape('.T=sm')} {
+			> ul {
+				border: 0;
+
+				> li {
+					padding: 19px 13px;
+					border: 1px solid #eee;
+					border-radius: 16px;
+
+					&:nth-child(n+2) {
+						margin-top: 20px;
+					}
+				}
+			}
+
+			.mm_product-item {
+				figcaption {
+					.text_product {
+						margin-top: 5px;
+					}
+
+					.text_option {
+						margin-top: 8px;
+					}
+				}
+			}
+
+			.mm_product-unit {
+				margin-top: 12px;
+
+				.btn_option-change {
+					.ico_toggle {
+						margin: 10px 0 0 5px;
+					}
+				}
+			}
+		}
+
+		+ section {
+			border-top: 8px solid #eee;
+		}
+	}
+}
+
+// 선물받기
+.m_present {
+	&-head {
+		padding: 16px 0 24px;
+		border-bottom: 8px solid #eee;
+	}
+
+	> section {
+		h6 {
+			padding: 3px 0 7px;
+			@include mixin.font(#333 '1.4rem');
+		}
+
+		[class*='mm_form'],
+		.m_address_note {
+			+ h6 {
+				margin-top: 27px;
+				padding-top: 0;
+			}
+		}
+
+		.mm_note {
+			margin-top: 10px;
+		}
+
+		.mm_check-list {
+			margin-top: 23px;
+
+			.mm_form-check {
+				.text_label {
+					margin-left: 2px;
+					padding-top: 2px;
+				}
+			}
+		}
+
+		.mm_form-select + .m_address_note {
+			margin-top: 4px;
+		}
+	}
+
+	// 옵션 변경
+	&-option {
+		visibility: hidden;
+		position: relative;
+		height: 0;
+
+		// 옵션 변경 펼침
+		#{function.escape('.mm_product-unit.S=toggle-on')} & {
+			visibility: inherit;
+			margin: 18px -13px -19px;
+			padding: 21px 18px 22px;
+			height: auto;
+			border: 1px solid transparent;
+			border-top-color: #eee;
+		}
+
+		&::before {
+			position: absolute;
+			z-index: 1;
+			top: -5px;
+			left: 133px;
+			width: 5px;
+			height: 5px;
+			border: 1px solid #eee;
+			border-width: 1px 0 0 1px;
+			background-color: #fff;
+			transform: rotate(45deg);
+			transform-origin: 0 0;
+			content: '';
+		}
+
+		.m_product-option-select {
+			padding: 0;
+
+			section:first-child {
+				padding-top: 0;
+			}
+		}
+
+		.mm_btn_box {
+			margin-top: 24px;
+		}
+	}
+}
+
+// 선물받기 완료
+.m_present-success {
+	&-head {
+		padding: 36px 0 24px;
+		border-bottom: 8px solid #eee;
+
+		.mm_title {
+			.ico_present-success::before {
+				width: 92px;
+				height: 92px;
+				@include mixin.background(url('/image/content/ico_gift_box.svg') 'center center/100% 100%' no-repeat);
+			}
+
+			b {
+				display: block;
+				margin-top: 16px;
+			}
+		}
+
+		dl {
+			position: relative;
+			padding: 15px 16px 13px 87px;
+			border-radius: 16px;
+			background-color: var(--color_main);
+			@include mixin.font('1.6rem/2.4rem');
+
+			dt {
+				position: absolute;
+				top: 50%;
+				left: 16px;
+				margin-top: 1px;
+				transform: translateY(-50%);
+			}
+		}
+
+		.mm_note {
+			margin-top: 20px;
+		}
+	}
+
+	.m_present-sender {
+		position: relative;
+		margin-top: 12px;
+		padding: 15px 16px 13px 130px;
+		border-radius: 16px;
+		background-color: #f2f7ff;
+		@include mixin.font('1.6rem/2.4rem');
+
+		dt {
+			position: absolute;
+			top: 50%;
+			left: 16px;
+			margin-top: 1px;
+			color: #666;
+			transform: translateY(-50%);
+		}
+	}
+
+	> section {
+		// 배송정보
+		.mm_order-info {
+			margin: -4px 0 -6px;
+			padding-bottom: 0;
+
+			table {
+				tr {
+					th {
+						width: 114px;
+					}
+				}
+			}
+		}
+
+		.mm_product-list#{function.escape('.T=sm')} {
+			> ul {
+				> li {
+					position: relative;
+
+					&#{function.escape('.T=item-giftcard')} {
+						margin-bottom: 48px;
+
+						&:last-child {
+							margin-bottom: 52px;
+						}
+					}
+
+					.text_cancel {
+						position: absolute;
+						right: 0;
+						bottom: -26px;
+						@include mixin.font(#666 '1.4rem' right);
+					}
+				}
+			}
+
+			.mm_product-unit {
+				margin-top: 18px;
+
+				.mm_btn {
+					.ico_coupon-download {
+						margin: 6px 0 0 2px;
+
+						&::before {
+							width: 20px;
+							height: 20px;
+							background-color: #222;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	> .mm_btn_box {
+		.btn_close {
+			padding: 0 12px;
+			height: 35px;
+			@include mixin.font('1.4rem/3.5rem');
+
+			.ico_popup-close {
+				margin: 10px 0 0 4px;
+
+				&::before {
+					width: 14px;
+					height: 14px;
+					@include mixin.svg(#666 url('/image/common/ico_bottom_close.svg'));
+				}
+			}
+		}
+	}
+}
+
+/** 마이페이지 */
+.m_mypresent {
+	.m_myorder-sort {
+		padding-top: 24px;
+
+		+ .mm_btn_box {
+			margin-top: 9px;
+		}
+	}
+
+	.mm_order-list {
+		margin-top: 17px;
+	}
+
+	.mm_order-item {
+		+ .mm_order-item {
+			margin-top: 9px;
+			border-top: 0;
+		}
+	}
+
+	&-message {
+		margin: 20px 24px 0;
+		padding: 14px 16px;
+		border-radius: 16px;
+		background-color: #f2f7ff;
+		@include mixin.font('1.5rem/2.4rem');
+
+		strong {
+			font-weight: 600;
+
+			.ico_message {
+				margin: 2px 4px 0 0;
+			}
+		}
+
+		> p {
+			margin-top: 2px;
+			@include mixin.text-ellipsis(2);
+		}
+	}
+}
+
+/** 선물 상세 */
+.m_myorder-detail {
+	// 배송정보
+	&-address {
+		position: relative;
+
+		.mm_text-none {
+			padding: 60px 0 55px;
+
+			+ .btn_address-register {
+				position: absolute;
+				top: 24px;
+				right: 24px;
+			}
+		}
+	}
+
+	// 개인통관 고유부호
+	&-unipass {
+		.mm_form_mix-linked {
+			> .text_readonly {
+				flex: 1;
+			}
+
+			.mm_btn {
+				margin: 1px 0 0 8px;
+				width: 99px;
+				height: 46px;
+				@include mixin.font(#222 700 '1.4rem/4.6rem');
+			}
+
+			+ .mm_note {
+				margin-top: 10px;
+			}
+		}
+
+		.btn_unipass {
+			margin-top: 10px;
+			@include mixin.font(#222 '1.6rem/2.3rem');
+
+			.ico_link {
+				margin: 3px 0 0 5px;
+			}
+		}
+
+		.mm_check-list {
+			margin: 23px 0 -2px;
+
+			ul {
+				li:nth-child(n+2) {
+					margin-top: 8px;
+				}
+			}
+
+			.mm_form-check {
+				.text_label {
+					margin-left: 2px;
+					padding-top: 2px;
+				}
+			}
+
+			.btn_detail {
+				margin-top: -2px;
+				padding: 4px 10px;
+			}
+		}
+	}
+}

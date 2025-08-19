@@ -1,0 +1,859 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 메인
+ */
+
+
+// 메인
+.m_main {
+	// 첫번 째 블록에 타이틀이 있을 경우
+	> .mm_mui:first-child {
+		[data-mui] {
+			> .mui_title {
+				margin-top: 21px;
+			}
+		}
+	}
+
+	// 앱전용 화면
+	&-app {
+		position: fixed;
+		z-index: const.$z_index_most;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		opacity: 1;
+
+		&-dim {
+			width: 100%;
+			height: 100%;
+			background-color: rgba(#000, 0.78);
+		}
+
+		&-item {
+			overflow: hidden;
+			position: absolute;
+			z-index: -1;
+			top: 50%;
+			left: 50%;
+			padding: 30px 20px;
+			width: 316px;
+			max-width: 95%;
+			border-radius: 10px;
+			background-color: #fff;
+			opacity: 0;
+			transform: translate(-50%, -50%);
+
+			&#{function.escape('.S=on')} {
+				z-index: const.$z_index_most;
+				opacity: 1;
+			}
+
+			h3 {
+				margin-bottom: 32px;
+				@include mixin.font('2rem/2.6rem' center);
+			}
+
+			ul {
+				padding: 0 35px 0 8px;
+
+				li {
+					position: relative;
+					height: 48px;
+					@include mixin.font('1.5rem/2.1rem');
+
+					[class*='ico_'] {
+						width: 48px;
+						height: 48px;
+						border: 1px solid #e6e6e6;
+						border-radius: 100%;
+						box-shadow: 0 2px 2px 0 rgba(#000, 0.05);
+						text-align: center;
+
+						&::before {
+							background-color: #101010;
+						}
+					}
+
+					$icons: (phone, 13px), (call, 13px), (photo, 14px), (noti, 13px), (setup, 12px);
+					@each $icon, $marginTop in $icons {
+						.ico_#{$icon}::before {
+							margin-top: $marginTop;
+						}
+					}
+
+					> p {
+						position: absolute;
+						top: 50%;
+						left: 0;
+						margin-top: 1px;
+						padding-left: 64px;
+						transform: translateY(-50%);
+
+						small {
+							display: block;
+							@include mixin.font(#888 '1.3rem/2rem');
+						}
+					}
+
+					&:nth-of-type(n+2) {
+						margin-top: 20px;
+					}
+				}
+
+				+ .mm_btn_box {
+					margin-top: 44px;
+
+					.btn_cancel {
+						margin-top: 18px;
+						padding: 0 20px;
+						@include mixin.font(#888 '1.4rem/2rem');
+
+						> b {
+							position: relative;
+
+							&::before {
+								position: absolute;
+								right: 0;
+								bottom: 1px;
+								left: 0;
+								border-bottom: 1px solid #888;
+								content: ''
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 앱으로 보기 배너
+		&-view {
+			position: absolute;
+			z-index: const.$z_index_header + 1;
+			top: 0;
+			right: 0;
+			left: 0;
+			transform: translateY(0);
+			transition: transform const.$time_fast;
+
+			#{function.escape('.S=hide')} & {
+				transform: translateY(-100%);
+			}
+
+			a {
+				display: block;
+				overflow: hidden;
+				padding: 13px 14px 12px;
+				background-color: #101010;
+				@include mixin.font(#fff 600 '1.4rem/2.5rem');
+
+				i {
+					float: right;
+					width: 85px;
+					height: 25px;
+					border-radius: 25px;
+					background-color: var(--color_variable);
+					@include mixin.font('1.2rem/2.6rem' center);
+				}
+			}
+		}
+	}
+}
+
+// 메인 캐러셀 구조
+.m_main-carousel {
+	position: absolute;
+	top: calc(var(--header_height_main) * -1);
+	bottom: 0;
+	width: 100%;
+
+	> .mm_carousel-inner {
+		height: 100%;
+
+		> .mm_carousel-list {
+			height: 100%;
+
+			> .mm_carousel-item {
+				height: 100%;
+
+				> .mm_scroller {
+					padding-top: calc(var(--header_height_main) + var(--gnb_height_base));
+
+					#{function.escape('.S=hide')} & {
+						padding-top: var(--gnb_height_base);
+					}
+				}
+			}
+		}
+	}
+
+	&-inner {
+		display: grid;
+		grid-template-rows: 1fr auto;
+		grid-template-columns: 100%;
+		min-height: 100%;
+	}
+}
+
+// 인기검색어
+.m_main-popular {
+	position: relative;
+	border-bottom: 5px solid #eee;
+
+	&::after {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border-bottom: 1px solid #e6e6e6;
+		content: '';
+	}
+
+	&-inner {
+		overflow: hidden;
+		position: relative;
+		background-color: #fff;
+
+		.m_main-popular-head {
+			position: relative;
+			padding: 22px 10px;
+			font-size: 0;
+
+			h3 {
+				display: inline-block;
+				position: relative;
+				padding-left: 6px;
+				width: 72px;
+				height: 24px;
+				border: 1px solid #f93e4e;
+				@include mixin.font(#f93e4e '1.4rem/2.2rem', nowrap);
+
+				&::before {
+					position: absolute;
+					top: -1px;
+					right: -8px;
+					bottom: 0;
+					@include mixin.triangle(#f93e4e, right, 12px, 7px);
+					content: '';
+				}
+
+				&::after {
+					position: absolute;
+					top: -1px;
+					right: -7px;
+					bottom: 0;
+					@include mixin.triangle(#fff, right, 12px, 7px);
+					content: '';
+				}
+			}
+
+			p {
+				display: inline-block;
+				padding-left: 21px;
+				@include mixin.font(#888 '1.4rem/2.4rem');
+			}
+
+			> button {
+				position: absolute;
+				top: 0;
+				right: 0;
+				padding: 16px 24px 18px;
+				height: 70px;
+
+				.ico_more::before {
+					width: 13px;
+					height: 15px;
+					background-color: #101010;
+				}
+			}
+		}
+
+		ol {
+			counter-reset: popularList;
+
+			li {
+				position: relative;
+
+				> a {
+					display: block;
+
+					&::before {
+						position: absolute;
+						padding-right: 2px;
+						width: 22px;
+						@include mixin.font(#2b2b2b '1.5rem/4.7rem' center);
+						counter-increment: popularList;
+						content: counter(popularList);
+					}
+
+					b:not(.text_rank) {
+						// display: inline;
+						@include mixin.text-ellipsis(1);
+					}
+
+					$ranks: ('up', #ee6439), ('down', #645ffc), ('unchanged', #888, 20px), ('new', null, 27px);
+					@each $rank, $color, $top in $ranks {
+						.ico_rank-#{$rank} {
+							position: absolute;
+							top: if($top, $top, 19px);
+
+							&::before {
+								background-color: $color;
+
+								@if $rank == unchanged {
+									width: 7px;
+								}
+							}
+
+							+ .text_rank {
+								position: absolute;
+								top: 0;
+								@include mixin.font($color 400 '1.5rem/7rem');
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 닫힘
+		&:not(#{function.escape('.S=toggle-on')}) {
+			.m_main-popular-head {
+				.text_date {
+					display: none;
+				}
+			}
+
+			ol {
+				overflow: hidden;
+				position: absolute;
+				top: 0;
+				right: 41px;
+				bottom: 0;
+				left: 105px;
+				background-color: #fff;
+
+				li {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+
+					&:nth-child(n+2) {
+						transform: translateY(100%);
+					}
+				}
+
+				a {
+					padding: 0 46px 0 30px;
+					@include mixin.font('1.7rem/6.8rem');
+
+					&::before {
+						left: 0;
+						@include mixin.font('1.7rem/6.8rem');
+					}
+				}
+
+				[class*='ico_rank-'] {
+					right: 13px;
+
+					&:not(.ico_rank-new) {
+						top: 32px;
+					}
+				}
+
+				.text_rank {
+					right: 26px;
+				}
+			}
+		}
+
+		// 열림
+		&#{function.escape('.S=toggle-on')} {
+			.m_main-popular-head {
+				> button {
+					.ico_more::before {
+						transform: rotate(180deg);
+					}
+				}
+			}
+
+			ol {
+				border-top: 1px solid #e6e6e6;
+
+				li {
+					&:nth-child(n+2) {
+						border-top: 1px solid #f5f5f5;
+					}
+
+					a {
+						padding: 0 63px 0 43px;
+						height: 45px;
+						@include mixin.font('1.4rem/4.6rem');
+
+						&::before {
+							left: 12px;
+						}
+
+						[class*='ico_rank'] {
+							top: 20px;
+							right: 24px;
+
+							&.ico_rank-new {
+								top: 17px;
+							}
+						}
+
+						.text_rank {
+							right: 38px;
+							line-height: 4.6rem;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	+ .mm_mui {
+		margin-top: 50px;
+	}
+}
+
+// *---------- 팝업 ----------*
+
+
+
+// *---------- 모달 ----------*
+
+
+
+// *---------- 레이어 ----------*
+
+/** 메인 팝업 */
+.m_main-popup {
+	position: fixed;
+	z-index: const.$z_index_popup;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+
+	&#{function.escape('.S=on')} {
+		opacity: 1;
+	}
+
+	&-dim {
+		width: 100%;
+		height: 100%;
+		background-color: rgba(#000, 0.78);
+	}
+
+	&-item {
+		overflow: hidden;
+		position: absolute;
+	}
+
+	// 일반형
+	&:not(#{function.escape('.T=popup-toast')}) {
+		// A타입
+		&#{function.escape('.T=pa')} {
+			.m_main-popup-item {
+				z-index: const.$z_index_popup;
+				top: 50%;
+				left: 50%;
+				padding-bottom: 58px;
+				width: 327px;
+				max-width: 95%;
+				border-radius: 16px;
+				background-color: #fff;
+				transform: translate(-50%, -50%);
+			}
+
+			.mm_carousel {
+				.mm_image-none {
+					height: 327px;
+
+					.image_banner::after {
+						position: absolute;
+						top: 50%;
+						right: 8px;
+						left: 8px;
+						transform: translateY(-50%);
+						content: attr(data-ir);
+						@include mixin.font(#a3a3a3 '1.4rem/2rem' center);
+					}
+				}
+
+				&-count {
+					right: 16px;
+					bottom: 16px;
+					padding: 0 10px;
+					height: 28px;
+					border-radius: 14px;
+					background-color: rgba(#222, 0.5);
+					@include mixin.font(#fff '1.4rem/2.8rem');
+
+					strong {
+						font-weight: 600;
+					}
+
+					> i {
+						margin: 0 4px;
+						opacity: 1;
+					}
+
+					span {
+						opacity: 1;
+					}
+				}
+			}
+
+			.mm_btn_box {
+				position: absolute;
+				z-index: 2;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				height: 58px;
+				@include mixin.font(#666 '1.6rem/5.8rem' left);
+				@include mixin.clearfix;
+
+				> * {
+					padding: 0 24px;
+					height: 58px;
+				}
+
+				.btn_close {
+					float: right;
+					@include mixin.font(var(--color_text_base) 600 '/6.2rem');
+
+					.ico_popup-close {
+						margin: 22px 3px 0 0;
+					}
+				}
+			}
+		}
+
+		// B타입
+		&#{function.escape('.T=pb')} {
+			.m_main-popup-item {
+				z-index: const.$z_index_popup;
+				top: 50%;
+				left: 50%;
+				width: 307px;
+				max-width: 95%;
+				transform: translate(-50%, -50%);
+			}
+
+			.mm_carousel {
+				&-item {
+					background-color: transparent;
+
+					.mm_image-none {
+						height: 307px;
+
+						&::after {
+							position: absolute;
+							top: 50%;
+							right: 8px;
+							left: 8px;
+							transform: translateY(-50%);
+							content: attr(data-ir);
+							@include mixin.font(#a3a3a3 '1.4rem/2rem' center);
+						}
+
+						> .ico_image {
+							display: none;
+						}
+					}
+				}
+
+				&-pagination {
+					position: relative;
+					bottom: 0;
+					padding: 21px 0 25px;
+					text-align: center;
+
+					li:nth-child(n+2) {
+						margin-left: 6px;
+					}
+
+					.btn_carousel-page {
+						width: 8px;
+						height: 8px;
+						border-radius: 100%;
+						background-color: #fff;
+						opacity: 0.4;
+						transition-property: width, opacity;
+						transition-duration: const.$time_fast;
+
+						&#{function.escape('.S=on')} {
+							border: 1px solid #fff;
+							background-color: transparent;
+							opacity: 1;
+						}
+					}
+				}
+			}
+
+			.mm_btn_box {
+				margin-top: 7px;
+				text-align: center;
+
+				.btn_today {
+					position: relative;
+					padding: 10px;
+					@include mixin.font(#fff '1.3rem' center);
+
+					&::before {
+						position: absolute;
+						right: 10px;
+						bottom: 8px;
+						left: 10px;
+						border-bottom: 1px solid #fff;
+						content: '';
+					}
+				}
+
+				.btn_close {
+					position: absolute;
+					z-index: const.$z_index_floating;
+					top: 0;
+					right: 12px;
+				}
+			}
+		}
+	}
+
+	// 토스트형
+	&#{function.escape('.T=popup-toast')} {
+		// A타입
+		&#{function.escape('.T=pa')} {
+			.m_main-popup-item {
+				bottom: 0;
+				left: 0;
+				width: 100%;
+
+				.mm_btn_box {
+					position: relative;
+					margin-top: 0;
+					height: 56px;
+					background-color: #fff;
+
+					> * {
+						position: absolute;
+						padding: 0 22px;
+					}
+
+					.btn_today {
+						top: 9px;
+						left: 0;
+						@include mixin.font(#aeaeae '1.3rem/4rem');
+					}
+
+					.btn_close {
+						top: 8px;
+						right: 0;
+						@include mixin.font('1.4rem/4rem');
+					}
+				}
+			}
+
+			.mm_carousel {
+				&-inner {
+					padding-top: 24px;
+				}
+
+				&-list {
+					overflow: hidden;
+					padding-top: 59.73333vw;
+					border-radius: 17px 17px 0 0;
+				}
+
+				&-item {
+					background-color: transparent;
+
+					.image_banner {
+						padding-top: 59.73333vw;
+						width: 100%;
+					}
+				}
+
+				&-count {
+					position: absolute;
+					z-index: 2;
+					top: 0;
+					right: 15px;
+					@include mixin.font(#888 '1.4rem');
+
+					strong {
+						color: #fff;
+					}
+
+					> i {
+						margin: 0 4px;
+						opacity: 1;
+					}
+
+					span {
+						opacity: 1;
+					}
+				}
+			}
+		}
+
+		// B타입
+		&#{function.escape('.T=pb')} {
+			.m_main-popup-item {
+				bottom: 0;
+				left: 0;
+				width: 100%;
+
+				.mm_btn_box {
+					position: relative;
+					margin-top: 0;
+					height: 56px;
+					background-color: #fff;
+
+					> * {
+						position: absolute;
+						padding: 0 22px;
+					}
+
+					.btn_today {
+						top: 9px;
+						left: 0;
+						@include mixin.font(#aeaeae '1.3rem/4rem');
+					}
+
+					.btn_close {
+						top: 8px;
+						right: 0;
+						@include mixin.font('1.4rem/4rem');
+					}
+				}
+			}
+
+			.mm_carousel {
+				&-list {
+					padding-top: 69.14893vw;
+				}
+
+				&-item {
+					background-color: transparent;
+
+					.image_banner {
+						padding-top: 69.14893vw;
+						width: 100%;
+						background-color: transparent;
+					}
+				}
+
+				&-count {
+					position: absolute;
+					z-index: 2;
+					right: 13px;
+					bottom: 19px;
+					@include mixin.font(#888 '1.2rem');
+
+					strong {
+						color: #fff;
+					}
+
+					> i {
+						margin: 0 4px;
+					}
+				}
+			}
+		}
+
+		// C타입
+		&#{function.escape('.T=pc')} {
+			.m_main-popup-item {
+				bottom: 0;
+				left: 0;
+				width: 100%;
+
+				.mm_btn_box {
+					position: relative;
+					margin-top: 0;
+					height: 56px;
+					background-color: #fff;
+
+					> * {
+						position: absolute;
+						padding: 0 22px;
+					}
+
+					.btn_today {
+						top: 9px;
+						left: 0;
+						@include mixin.font(#aeaeae '1.3rem/4rem');
+					}
+
+					.btn_close {
+						top: 8px;
+						right: 0;
+						@include mixin.font('1.4rem/4rem');
+					}
+				}
+			}
+
+			.mm_carousel {
+				&-list {
+					padding-top: 93.0851vw;
+				}
+
+				&-item {
+					background-color: transparent;
+
+					.image_banner {
+						padding-top: 93.0851vw;
+						width: 100%;
+						background-color: transparent;
+					}
+				}
+
+				&-pagination {
+					bottom: 10px;
+
+					li:nth-child(n+2) {
+						margin-left: 4px;
+					}
+
+					.btn_carousel-page {
+						width: 10px;
+						height: 10px;
+						border: 1px solid #707070;
+						border-radius: 100%;
+						background-color: #fff;
+						opacity: 1;
+
+						&#{function.escape('.S=on')} {
+							border: 0;
+							background-color: #101010;
+							opacity: 0.6;
+						}
+					}
+				}
+			}
+		}
+
+		// 팝업 on
+		&#{function.escape('.S=on')} {
+			.m_main-popup-item {
+				transform: translateY(0);
+			}
+		}
+	}
+}

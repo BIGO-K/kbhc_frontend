@@ -1,0 +1,184 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 카테고리, 판매자샵
+ * 검색결과
+ */
+
+/** 카테고리 */
+.m_product-category {
+	// 카테고리 배너
+	&-banner {
+		&:first-child {
+			margin-top: 16px;
+		}
+
+		.image_banner {
+			display: block;
+			border-radius: 8px;
+
+			img {
+				border-radius: 8px;
+			}
+		}
+	}
+
+	// 카테고리 리스트
+	&-list {
+		position: relative;
+
+		&::after {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 1px;
+			width: 36px;
+			height: 50px;
+			background: linear-gradient(270deg, #fff 15%, rgba(#fff, 0) 100%);
+			content: '';
+		}
+
+		ul {
+			display: inline-block;
+			position: relative;
+			min-width: 100%;
+			@include mixin.font('0', nowrap);
+
+			li {
+				display: inline-block;
+
+				a {
+					position: relative;
+				}
+			}
+		}
+
+		// 소 카테고리
+		&:nth-of-type(2) {
+			ul {
+				padding: 8px 24px;
+				padding-right: 49px;
+
+				li:nth-child(n+2) {
+					margin-left: 8px;
+				}
+
+				a {
+					padding: 0 12px;
+					min-width: 68px;
+
+					&#{function.escape('.S=category-on')} {
+						background-color: #3b4a65;
+						@include mixin.font(#fff 600);
+
+						&::after {
+							border-color: #303d54;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// 소 카테고리 드롭다운
+	.mm_dropdown {
+		.btn_dropdown {
+			position: absolute;
+			top: -43px;
+			right: 7px;
+			width: 34px;
+			height: 34px;
+			border: 1px solid #cdcdcd;
+			border-radius: 6px;
+			background-color: #fff;
+			box-shadow: 1px 1px 2px 0 rgba(#000, 0.11);
+
+			#{function.escape('.T=category')}::before {
+				margin-right: 8px;
+				width: 16px;
+				height: 16px;
+			}
+		}
+
+		&-item-inner {
+			position: relative;
+			margin: 6px 24px 0;
+			border-radius: 16px;
+			background-color: #f8f8f8;
+
+			.mm_scroller {
+				max-height: 165px;
+			}
+
+			ul {
+				display: grid;
+				grid-template-columns: repeat(2, 50%);
+				grid-row-gap: 7px;
+				padding: 17px 19px 21px;
+
+				li {
+					padding: 0 5px;
+
+					a {
+						display: block;
+						@include mixin.font(#666 '1.4rem');
+
+						> b {
+							// display: block;
+							@include mixin.text-ellipsis(1);
+						}
+
+						&#{function.escape('.S=category-on')} {
+							color: #222;
+						}
+					}
+				}
+
+				&::after {
+					content: none;
+				}
+			}
+		}
+
+		&#{function.escape('.S=on')} {
+			.btn_dropdown {
+				#{function.escape('.T=category')}::before {
+					margin-left: 8px;
+				}
+			}
+		}
+
+		#{function.escape('.S=ios')} & { margin-top: 0; }
+		#{function.escape('.S=ios')} &-item-inner { border-top: 0; }
+	}
+}
+
+/** 판매자샵 */
+.m_product-seller {
+	padding: 32px 0 44px;
+
+	section {
+		h3 {
+			padding: 0 24px 20px;
+			@include mixin.font(#222 600 '2rem');
+		}
+
+		+ section {
+			margin-top: 48px;
+		}
+	}
+
+	~ .mm_inner {
+		border-top: 1px solid #eee;
+
+		.mm_product-list-head {
+			padding-top: 26px;
+		}
+	}
+}

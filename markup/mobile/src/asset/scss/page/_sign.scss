@@ -1,0 +1,108 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 로그인, 회원가입
+ */
+
+/** 공통 */
+.m_sign {
+	padding: 33px 34px 0;
+
+	&:not(.m_renewal) {
+		.mm_foot {
+			margin-top: 18px;
+		}
+	}
+
+	&-title {
+		padding-bottom: 45px;
+		text-align: center;
+
+		h3 {
+			@include mixin.font('2rem/2.7rem');
+		}
+
+		p {
+			padding: 12px 0 48px;
+			font-size: 1.5rem;
+		}
+
+		> b {
+			display: block;
+			padding-top: 9px;
+			@include mixin.font(#6a6a6a '1.3rem/1.8rem');
+		}
+	}
+
+	.m_sign-title {
+		~ .mm_foot {
+			margin-top: 28px;
+		}
+	}
+}
+
+// sns 아이콘
+[class*='m_sign'] {
+	i[class*='ico_sns-'] {
+		width: 47px;
+		height: 47px;
+		border-radius: 100%;
+		text-align: center;
+
+		$sns: (naver, 16px, #2fac58), (kakao, 13px, #f1d200), (apple, 9px, #000);
+		@each $type, $paddingTop, $bgColor in $sns {
+			&.ico_sns-#{$type} {
+				padding-top: $paddingTop;
+				background-color: $bgColor;
+			}
+		}
+	}
+}
+
+/** 성인인증 */
+.m_sign-adult {
+	> strong {
+		display: block;
+		padding-top: 3px;
+		@include mixin.font('2rem' center);
+
+		.ico_adult {
+			display: block;
+			margin: 0 auto 15px;
+		}
+	}
+
+	> p {
+		margin-top: 46px;
+		@include mixin.font('1.3rem/2rem');
+
+		strong {
+			color: #e91b1b;
+		}
+
+		+ p {
+			margin-top: 5px;
+		}
+	}
+
+	+ .mm_btn_box {
+		margin-top: 63px;
+	}
+}
+
+
+// *---------- 팝업 ----------*
+
+
+
+// *---------- 모달 ----------*
+
+
+
+// *---------- 레이어 ----------*

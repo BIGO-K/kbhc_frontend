@@ -1,0 +1,56 @@
+import { useWishedStore } from '$/stores/useWishedStore';
+import { useBackend } from '$/composables/useBackend';
+
+/**
+ * 브랜드샵 정보 조회
+ * @param { number } brandId :브랜드 ID
+*/
+export const useBrandShop = async (brandId: number) => {
+	const { check } = useWishedStore();
+
+	const information = await useBackend().command<BrandShopInformation>(`v1/brand/${brandId}`);
+	const informationIds = information.curations.map(_entry => _entry.id);
+	check(informationIds);
+
+	return {
+		information,
+		fetchFilterable: async () => {
+			const { filters: filterableResource } = await useBackend().command<{
+				filters: BrandShopGoodsFilterable;
+			}>(`v1/brand/${brandId}/filters-of-goods`);
+
+			return filterableResource;
+		},
+		fetchCount: async (paramsForCommand: GoodsFilterParamForCommand) => {
+			const { total_count } = await useBackend().command<{
+				total_count: number;
+			}>(
+				`v1/brand/${brandId}/total-count-of-goods`,
+				{
+					params: {
+						...paramsForCommand,
+					},
+				}
+			);
+
+			return total_count;
+		},
+		fetchList: async (paramsForCommand: GoodsFilterParamForCommand) => {
+			const { paginator: { data } } = await useBackend().command<{
+				paginator: SimplePaginator<Goods>;
+			}>(
+				`v1/brand/${brandId}/goods`,
+				{
+					params: {
+						...paramsForCommand,
+					},
+				}
+			);
+
+			const goodsIds = data.flatMap(goods => goods.id);
+			check(goodsIds);
+
+			return data;
+		},
+	};
+};

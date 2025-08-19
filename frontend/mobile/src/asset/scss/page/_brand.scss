@@ -1,0 +1,213 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 브랜드샵
+ */
+
+/** 브랜드샵 */
+.m_brand {
+	&-head {
+		padding: 16px 24px 0;
+
+		.text_brand {
+			position: relative;
+			margin: 0 -24px;
+
+			b {
+				position: absolute;
+				top: 50%;
+				right: 0;
+				left: 0;
+				padding: 0 14px;
+				@include mixin.font(#fff 700 '2rem/2.8rem' [var.$font_family_kb] center);
+				transform: translateY(-50%);
+			}
+
+			.image_banner {
+				display: block;
+				position: relative;
+				padding-top: 56%;
+				background-color: #888;
+
+				&::after {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					background-color: rgba(#222, 0.22);
+					content: '';
+				}
+
+				&#{function.escape('.S=error')} {
+					&::after {
+						top: auto;
+						border-bottom: 1px solid #eee;
+						background-color: transparent;
+					}
+				}
+			}
+		}
+
+		.text_main {
+			margin-top: 20px;
+			@include mixin.font(#222 600 '1.8rem/2.4rem');
+
+			+ .text_sub {
+				margin-top: 9px;
+			}
+		}
+
+		.text_sub {
+			margin-top: 20px;
+			@include mixin.font(#444 '1.6rem/2.4rem');
+		}
+
+		&-private {
+			margin-top: 19px;
+
+			ul {
+				height: 54px;
+
+				li {
+					&:nth-child(n+2) {
+						margin-left: 8px;
+					}
+
+					> button {
+						padding: 0;
+						border-radius: 8px;
+						background-color: #f3f5f8;
+						@include mixin.font(#444 '1.6rem/5.6rem');
+
+						i {
+							margin: 19px 4px 0 0;
+
+							&::before {
+								width: 16px;
+								height: 16px;
+								background-color: #444;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		+ * {
+			margin-top: 44px;
+		}
+	}
+
+	// 브랜드샵 - 큐레이션
+	&-curation {
+		padding: 0 24px 48px;
+
+		h4 {
+			padding-bottom: 20px;
+			@include mixin.font(#222 600 '2rem');
+		}
+
+		> .mm_product-item#{function.escape('.T=single')} {
+			figure {
+				grid-template-columns: 53.82262% auto;
+			}
+
+			figcaption {
+				padding: 2px 0 0 10px;
+
+				.text_brand {
+					font-size: 1.3rem;
+				}
+
+				.text_product {
+					margin-top: 6px;
+					padding-right: 18px;
+					height: 40px;
+					@include mixin.font('1.4rem/2rem');
+				}
+
+				.text_sale {
+					right: auto;
+					margin-top: 7px;
+				}
+
+				.text_price {
+					margin-top: 6px;
+					padding-left: 40px;
+				}
+
+				.mm_tag-list {
+					margin-top: 11px;
+				}
+			}
+
+			.btn_like {
+				left: 53.82262%;
+				margin-top: 53.82262%;
+				padding: 4px;
+			}
+		}
+
+		.mm_product-list#{function.escape('.T=card')} {
+			margin-top: 16px;
+
+			ul {
+				grid-template-columns: repeat(3, 1fr);
+				grid-column-gap: 8px;
+			}
+
+			.mm_product-item:not(#{function.escape('.T=single')}) {
+				figcaption {
+					margin-top: 12px;
+
+					.text_product {
+						height: 20px;
+						@include mixin.text-ellipsis(1);
+						@include mixin.font('1.4rem/2rem');
+					}
+
+					.text_sale {
+						right: 4px;
+						margin-top: 4px;
+						@include mixin.font('1.4rem/2rem');
+					}
+
+					.text_price {
+						margin-top: 4px;
+
+						strong {
+							@include mixin.font(700 '1.4rem/2rem');
+						}
+					}
+				}
+			}
+		}
+
+		.mm_btn_box {
+			margin-top: 24px;
+
+			.mm_btn {
+				font-size: 1.3rem;
+
+				.ico_more-load {
+					margin: 8px 0 0 4px;
+				}
+			}
+		}
+
+		~ .mm_inner {
+			border-top: 1px solid #eee;
+
+			.mm_product-list-head {
+				padding-top: 26px;
+			}
+		}
+	}
+}

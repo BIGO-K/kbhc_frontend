@@ -1,0 +1,45 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../helper/function';
+@use '../helper/mixin';
+@use '../helper/const';
+@use '../helper/var';
+
+/**
+ * 기타
+ */
+
+// 페이지 이동(주문결제, 교환 사용)
+.m_page-move {
+	display: grid;
+	grid-template-rows: 48px 1fr auto;
+	align-items: center;
+	padding-bottom: 34px;
+	height: 100%;
+	min-height: 100%;
+	@include mixin.font('0' center);
+
+	> h1 {
+		padding: 14px 0 18px;
+
+		.ico_logo {
+			width: 101px;
+			height: 16px;
+			@include mixin.background(url('/image/common/logo_ocare.svg') '50% 50%/contain' no-repeat);
+		}
+	}
+
+	> p {
+		@include mixin.font('1.8rem/2.6rem');
+
+		> strong {
+			display: block;
+			font-weight: 600;
+		}
+	}
+
+	> .mm_btn_box {
+		padding: 0 24px;
+	}
+}

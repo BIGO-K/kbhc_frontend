@@ -1,0 +1,105 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../../asset/scss/helper/function';
+@use '../../asset/scss/helper/mixin';
+@use '../../asset//scss/helper/const';
+@use '../../asset/scss/helper/var';
+
+/**
+ * 사은품
+ * 상품상세
+ */
+
+
+/** 사은품 공통 */
+.mm_gift {
+	&-list {
+		li:nth-child(n+2) {
+			margin-top: 8px;
+		}
+	}
+
+	&-item {
+		position: relative;
+		padding: 15px;
+		border: 1px solid #eee;
+		border-radius: 8px;
+
+		.image_gift {
+			position: absolute;
+			width: 75px;
+			border-radius: 8px;
+
+			&::after {
+				padding-top: var.$prod_height_base;
+				content: '';
+			}
+		}
+
+		figcaption {
+			margin-left: 75px;
+			padding: 1px 0 0 12px;
+			min-height: 75px;
+			@include mixin.font('1.4rem/2rem');
+
+			p.text_name {
+				@include mixin.font(500 '1.6rem/2.4rem');
+
+				+ dl {
+					margin-top: 7px;
+				}
+			}
+
+			> dl {
+				color: #222;
+
+				&:not(:first-child) {
+					margin-top: 10px;
+				}
+
+				dt {
+					color: #888;
+				}
+			}
+		}
+
+		> .mm_btn_box {
+			position: relative;
+			z-index: 1;
+			margin: 19px -19px -19px;
+
+			&::before {
+				position: absolute;
+				top: 0;
+				right: 13px;
+				left: 13px;
+				border-top: 1px solid #eee;
+				content: '';
+			}
+
+			.btn_gift-info {
+				padding: 12px 15px 11px;
+				@include mixin.font(#888 '1.3rem');
+
+				&:not(a) {
+					color: #b8b8b9;
+
+					.ico_link::before {
+						background-color: #b8b8b9;
+					}
+				}
+
+				.ico_link {
+					margin: 3px 0 0 5px;
+
+					&::before {
+						width: 4px;
+						height: 8px;
+						background-color: #888;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,824 @@
+@charset 'utf-8';
+
+@use 'sass:math';
+@use '../../asset/scss/helper/function';
+@use '../../asset/scss/helper/mixin';
+@use '../../asset//scss/helper/const';
+@use '../../asset/scss/helper/var';
+
+/**
+ * 래플
+ * 래플, 상품상세
+ */
+
+/** 래플 */
+// B타입
+.m_raffle#{function.escape('.T=rb')} {
+	padding-top: 29px;
+
+	// 진행중
+	.m_raffle-ongoing {
+		.mm_strapline {
+			padding-bottom: 23px;
+			text-align: center;
+
+			.btn_guide {
+				position: relative;
+				margin: 2px 0 0 4px;
+				line-height: 1;
+
+				&::before {
+					position: absolute;
+					top: -10px;
+					right: -10px;
+					bottom: -10px;
+					left: -10px;
+					content: '';
+				}
+			}
+		}
+
+		ul {
+			li {
+				&:nth-child(n+2) {
+					margin-top: 49px;
+				}
+
+				> .mm_btn_box {
+					margin-top: 21px;
+				}
+			}
+		}
+
+		.mm_product-item {
+			&-image {
+				.image_product {
+					padding-top: 100%;
+					width: 100%;
+				}
+
+				.text_join {
+					position: absolute;
+					bottom: 18px;
+					left: 50%;
+					padding: 0 10px;
+					height: 30px;
+					border-radius: 4px;
+					background-color: #000;
+					@include mixin.font(#fff '1.6rem/3.2rem');
+					transform: translateX(-50%);
+				}
+			}
+
+			figcaption {
+				padding: 0 8px 0 2px;
+
+				.text_brand {
+					margin-top: 22px;
+					font-size: 1.6rem;
+				}
+
+				.text_product {
+					@include mixin.font('1.8rem/2.6rem');
+				}
+
+				.text_sale {
+					display: inline-block;
+					position: unset;
+					margin: 13px 8px 0 0;
+					font-size: 2rem;
+				}
+
+				.text_price {
+					display: inline-block;
+					margin-top: 12px;
+
+					strong {
+						font-size: 2rem;
+					}
+
+					del {
+						display: inline-block;
+						margin: 5px 0 0 9px;
+						padding: 0;
+						font-size: 1.6rem;
+
+						&::after {
+							font-size: inherit;
+						}
+					}
+				}
+			}
+		}
+
+		&-progress {
+			margin: 0 -8px 0 -2px;
+
+			// 진행중
+			&#{function.escape('.T=proceeding')} {
+				dl {
+					color: #222;
+				}
+
+				#{function.escape('.m...progress-bar')} {
+					.text_state {
+						right: auto;
+						background-color: var(--color_sub);
+						transform: translateX(-50%);
+
+						&::after {
+							background-color: var(--color_sub);
+							transform: translateX(-50%);
+						}
+					}
+
+					> b {
+						background-color: var(--color_sub);
+
+						&::before,
+						&::after {
+							background-color: var(--color_sub);
+						}
+
+						> i {
+							border-color: var(--color_sub);
+						}
+					}
+				}
+			}
+
+			dl {
+				padding-top: 21px;
+				@include mixin.font(#888 600 '1.8rem' center);
+
+				// 진행 예정
+				&:only-child {
+					padding-bottom: 27px;
+					border-bottom: 1px solid #eee;
+					color: #222;
+				}
+
+				dd {
+					margin-top: 11px;
+					@include mixin.font(700 '2.6rem' [var.$font_family_kb]);
+
+					span {
+						padding: 0 4px;
+						vertical-align: 2px;
+						font-size: 2rem;
+					}
+				}
+			}
+
+			#{function.escape('.m...progress-bar')} {
+				position: relative;
+				margin: 40px 5px 0;
+				height: 10px;
+				background-color: #eee;
+
+				&::before,
+				&::after {
+					position: absolute;
+					top: 0;
+					left: -5px;
+					width: 10px;
+					height: 10px;
+					border-radius: 100%;
+					background-color: #eee;
+					content: '';
+				}
+
+				&::after {
+					right: -5px;
+					left: auto;
+				}
+
+				.text_state {
+					position: absolute;
+					top: -37px;
+					right: -5px;
+					padding: 0 14px;
+					height: 28px;
+					border-radius: 14px;
+					background-color: #888;
+					@include mixin.font(#fff 700 '1.4rem/2.8rem' [var.$font_family_kb], nowrap);
+
+					&::after {
+						position: absolute;
+						bottom: -5px;
+						left: 50%;
+						width: 10px;
+						height: 10px;
+						@include mixin.svg(#888 url('/image/content/speech_bubble_tail.svg') '50% 50%/contain' no-repeat);
+						content: '';
+					}
+				}
+
+				> b {
+					position: absolute;
+					top: 0;
+					bottom: 0;
+					left: 0;
+					background-color: #888;
+
+					&::before,
+					&::after {
+						position: absolute;
+						top: 0;
+						left: -5px;
+						width: 10px;
+						height: 10px;
+						border-radius: 100%;
+						background-color: #888;
+						content: '';
+					}
+
+					&::after {
+						right: -5px;
+						left: auto;
+					}
+
+					> i {
+						position: absolute;
+						z-index: 1;
+						top: 50%;
+						right: 0;
+						width: 16px;
+						height: 16px;
+						border: 3px solid #888;
+						border-radius: 100%;
+						background-color: #fff;
+						transform: translate(50%, -50%);
+					}
+				}
+			}
+		}
+
+		+ .m_raffle-end {
+			margin-top: 77px ;
+		}
+	}
+
+	// 종료
+	.m_raffle-end {
+		.mm_strapline {
+			padding-bottom: 15px;
+		}
+
+		ul {
+			li {
+				&:nth-child(n+2) {
+					margin-top: 40px;
+				}
+
+				> .mm_btn_box {
+					margin-top: 16px;
+				}
+			}
+		}
+
+		.mm_product-item {
+			&-image {
+				width: 51.37614%;
+
+				.image_product {
+					padding-top: 100%;
+					width: 100%;
+				}
+
+				.text_join {
+					position: absolute;
+					bottom: 8px;
+					left: 50%;
+					padding: 0 10px;
+					height: 30px;
+					border-radius: 4px;
+					background-color: #000;
+					@include mixin.font(#fff '1.6rem/3.2rem', nowrap);
+					transform: translateX(-50%);
+				}
+			}
+
+			figcaption {
+				position: absolute;
+				top: 0;
+				right: 0;
+				left: 0;
+				margin-left: 51.37614%;
+				padding: 4px 0 0 12px;
+
+				.text_brand {
+					margin-top: 0;
+				}
+
+				.text_product {
+					margin-top: 6px;
+					padding-right: 18px;
+				}
+
+				.text_sale {
+					right: 18px;
+					margin-top: 7px;
+				}
+
+				.text_price {
+					margin-top: 6px;
+
+					del::after {
+						font-size: inherit;
+					}
+				}
+			}
+		}
+	}
+}
+
+/** 상품상세 */
+.m_prodetail-head-product {
+	#{function.escape('.m...product-raffle')} {
+		margin: 44px 24px 26px;
+		padding-bottom: 19px;
+		border-bottom: 1px solid #eee;
+		@include mixin.font(#888 center);
+
+		// 진행중
+		&#{function.escape('.T=proceeding')} {
+			color: #222;
+
+			#{function.escape('.m...product-raffle-progress')} {
+				.text_state {
+					background-color: var(--color_sub);
+
+					&::after {
+						background-color: var(--color_sub);
+					}
+				}
+
+				> b {
+					background-color: var(--color_sub);
+
+					&::before,
+					&::after {
+						background-color: var(--color_sub);
+					}
+
+					> i {
+						border-color: var(--color_sub);
+					}
+				}
+			}
+		}
+
+		// 진행예정
+		&#{function.escape('.T=schedule')} {
+			color: #222;
+
+			#{function.escape('.m...product-raffle-progress')} {
+				.text_state {
+					background-color: #3b4a65;
+
+					&::after {
+						background-color: #3b4a65;
+					}
+				}
+
+				> b {
+					background-color: #eee;
+
+					&::before,
+					&::after {
+						background-color: #eee;
+					}
+
+					> i {
+						border-color: #3b4a65;
+					}
+				}
+			}
+		}
+
+		&-progress {
+			position: relative;
+			margin: 0 26px;
+			height: 10px;
+			background-color: #eee;
+
+			&::before,
+			&::after {
+				position: absolute;
+				top: 0;
+				left: -5px;
+				width: 10px;
+				height: 10px;
+				border-radius: 100%;
+				background-color: #eee;
+				content: '';
+			}
+
+			&::after {
+				right: -5px;
+				left: auto;
+			}
+
+			.text_state {
+				position: absolute;
+				top: -38px;
+				padding: 0 14px;
+				height: 28px;
+				border-radius: 14px;
+				background-color: #888;
+				@include mixin.font(#fff 700 '1.4rem/2.8rem' [var.$font_family_kb], nowrap);
+				transform: translateX(-50%);
+
+				&::after {
+					position: absolute;
+					bottom: -5px;
+					left: 50%;
+					width: 10px;
+					height: 10px;
+					@include mixin.svg(#888 url('/image/content/speech_bubble_tail.svg') '50% 50%/contain' no-repeat);
+					transform: translateX(-50%);
+					content: '';
+				}
+			}
+
+			> b {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				background-color: #888;
+
+				&::before,
+				&::after {
+					position: absolute;
+					top: 0;
+					left: -5px;
+					width: 10px;
+					height: 10px;
+					border-radius: 100%;
+					background-color: #888;
+					content: '';
+				}
+
+				&::after {
+					right: -5px;
+					left: auto;
+				}
+
+				> i {
+					position: absolute;
+					z-index: 1;
+					top: 50%;
+					right: 0;
+					width: 16px;
+					height: 16px;
+					border: 4px solid #888;
+					border-radius: 100%;
+					background-color: #fff;
+					transform: translate(50%, -50%);
+				}
+			}
+		}
+
+		dl {
+			margin-top: 8px;
+			font-size: 0;
+
+			> * {
+				display: inline-block;
+				line-height: 3.4rem;
+			}
+
+			dt {
+				@include mixin.font(600 '1.6rem');
+			}
+
+			dd {
+				margin-left: 10px;
+				@include mixin.font(700 '2.6rem' [var.$font_family_kb]);
+
+				span {
+					margin: 0 2px;
+					font-size: 2rem;
+				}
+			}
+		}
+
+		.mm_btn {
+			margin-top: 10px;
+
+			.ico_link {
+				margin: 10px 0 0 4px;
+
+				&::before {
+					width: 12px;
+					height: 12px;
+					background-color: #666;
+				}
+			}
+		}
+	}
+}
+
+/** 래플 응모 내역 */
+.m_myraffle {
+	section {
+		> h3 {
+			padding: 29px 24px 14px;
+			vertical-align: 0;
+			@include mixin.font(#222 600 '1.8rem/2.6rem');
+
+			small {
+				margin-left: 3px;
+				vertical-align: 1px;
+				@include mixin.font(400 '1.6rem/2.4rem');
+			}
+
+			+ .mm_text-none {
+				border-top: 1px solid #eee;
+			}
+		}
+
+		#{function.escape('.mm_product-list.T=sm')} {
+			ul {
+				border-width: 1px 0 0;
+
+				li {
+					position: relative;
+					padding: 24px !important;
+				}
+			}
+		}
+
+		.mm_tag-list {
+			position: absolute;
+			top: 28px;
+			left: 111px;
+			height: auto;
+		}
+
+		.mm_product-item {
+			figcaption {
+				padding-top: 40px !important;
+
+				#{function.escape('.mm_tag.T=gray')}:not(#{function.escape('.T=full')}) {
+					border-color: #888;
+				}
+			}
+
+			+ .mm_btn_box {
+				padding-top: 20px;
+			}
+		}
+	}
+
+	.m_myraffle-off {
+		#{function.escape('.mm_product-list.T=sm')} {
+			ul {
+				li {
+					padding-bottom: 21px !important;
+				}
+			}
+		}
+	}
+
+	.m_myraffle-on {
+		> .mm_btn_box {
+			padding-bottom: 75px;
+		}
+	}
+
+	.mm_text-none {
+		&:first-child {
+			padding-top: 56px;
+		}
+
+		+ .mm_btn_box {
+			margin-top: -38px;
+		}
+	}
+}
+
+
+// *---------- 팝업 ----------*
+
+
+// *---------- 모달 ----------*
+
+/** 래플 당첨 결과 */
+// B타입
+.m_raffle-result#{function.escape('.T=rb')} {
+	.btn_modal-close {
+		margin: 3px 0 0 1px;
+
+		.ico_modal-close {
+			&::before {
+				width: 22px;
+				height: 22px;
+			}
+		}
+	}
+
+	.mm_product-item {
+		.mm_product-item-image {
+			position: relative;
+			background-color: initial;
+			text-align: center;
+
+			&::before {
+				position: absolute;
+				z-index: 1;
+				top: calc(50% + 10px);
+				left: calc(50% + 9px);
+				width: 87.59797%;
+				height: 85.29569%;
+				@include mixin.background(url('/image/content/raffle_prize_flower_1.svg') '50% 50%/cover' no-repeat);
+				transform: translate(-50%, -50%);
+				content: '';
+			}
+
+			.image_product {
+				position: relative;
+				width: 186px;
+				height: 186px;
+				border-radius: 100%;
+
+				&::before {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					border-radius: 100%;
+					background-color: rgba(#000, 0.4);
+					content: '';
+				}
+			}
+		}
+
+		figcaption {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-top: 6px;
+			transform: translate(-50%, -50%);
+
+			.text_product {
+				margin: 0;
+				@include mixin.font(#fff '1.6rem/2.4rem');
+			}
+		}
+	}
+
+	h3 {
+		margin-top: 23px;
+		@include mixin.font(#222 700 '2rem/2.8rem' [var.$font_family_kb]);
+	}
+
+	.text_notice {
+		margin-top: 10px;
+		@include mixin.font(#484b51 400 '1.6rem');
+
+		&:last-child {
+			padding-bottom: 27px;
+		}
+	}
+
+	.text_period {
+		margin-top: 22px;
+		padding: 20px 0;
+		border-radius: 8px;
+		background-color: #f8f8f8;
+		@include mixin.font(#222 '1.4rem');
+
+		b {
+			display: block;
+			margin-top: 6px;
+			color: var(--color_sub);
+		}
+	}
+
+	.mm_btn_box {
+		margin-top: 32px;
+	}
+
+	&:not(#{function.escape('.T=raffle-prize')}) {
+		.mm_product-item-image::before {
+			display: none;
+		}
+	}
+}
+
+
+// *---------- 오버레이 ----------*
+
+/** 래플 */
+.m_raffle {
+	// 래플 안내
+	&-guide {
+		h3 {
+			@include mixin.font(600 '2rem' center);
+
+			+ p {
+				margin-top: 13px;
+				@include mixin.font(#444 '1.6rem/2.4rem' center);
+			}
+		}
+
+		ol {
+			margin-top: 44px;
+			padding-right: 25px;
+			counter-reset: listIndex;
+
+			li {
+				position: relative;
+				margin-top: 25px;
+				padding-left: 52px;
+				@include mixin.font(#222 500 '1.6rem');
+
+				&:not(:last-child)::before {
+					position: absolute;
+					top: 30px;
+					left: 17px;
+					height: 100%;
+					border-left: 1px solid #eee;
+					content: '';
+				}
+
+				&::after {
+					position: absolute;
+					z-index: 1;
+					top: -5px;
+					left: 0;
+					width: 36px;
+					height: 36px;
+					border: 1px solid #eee;
+					border-radius: 100%;
+					background-color: #fff;
+					@include mixin.font(#666 500 '1.8rem/3.6rem' center);
+					counter-increment: listIndex;
+					content: counter(listIndex);
+				}
+
+				p {
+					margin-top: 3px;
+					@include mixin.font(#444 400 '1.5rem/2.4rem');
+				}
+			}
+		}
+
+		.mm_note {
+			margin-top: 40px;
+		}
+	}
+
+	// 래플 응모
+	&-entry {
+		padding-top: 16px;
+
+		> .mm_note {
+			margin-top: 20px;
+		}
+
+		> .mm_form-check {
+			margin-top: 21px;
+		}
+
+		.mm_foot {
+			margin-top: 23px;
+		}
+	}
+}
+
+// 당첨자 보기
+.m_raffle-winner {
+	table {
+		@include mixin.font(#222 '1.6rem/2.4rem');
+
+		thead {
+			th {
+				height: 40px;
+				border-radius: 0 8px 8px 0;
+				background-color: #f8f8f8;
+				font-size: 1.4rem;
+
+				&:first-child {
+					width: 37.92048%;
+					border-radius: 8px 0 0 8px;
+				}
+			}
+		}
+
+		tbody {
+			td {
+				padding: 13px 10px 10px;
+				border-bottom: 1px solid #eee;
+
+				&:last-child {
+					text-align: left;
+				}
+			}
+		}
+	}
+}
