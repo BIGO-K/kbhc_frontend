@@ -3,14 +3,11 @@
 	"compilerOptions": {
 		"composite": true,
 		"lib": [
-			"ESNext",
-			"DOM"
+			"ES2020",
+			"DOM",
+			"DOM.Iterable"
 		],
 		"jsx": "preserve",
-		"typeRoots": [
-			"../../node_modules/@types",
-			"../@types"
-		],
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"],
@@ -27,12 +24,13 @@
 		"../errors/**/*",
 		"../stores/**/*",
 		"../utils/**/*",
-		"../env.d.ts",
+		// "../env.d.ts",
 		"vite.config.js"
 	],
 	"exclude": [
 		"node_modules",
 		"dist",
+		"build",
 		"src/**/__tests__/*"
 	],
 }

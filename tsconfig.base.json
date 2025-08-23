@@ -1,14 +1,16 @@
 {
 	"compilerOptions": {
 		"target": "esnext",
+		"lib": ["ES2020"],
 		"module": "esnext",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,// 독립적 타입 체크
 		"useDefineForClassFields": true,
+		"baseUrl": ".",
 		"types": [
-			"node",
-			"vite/client"
+			"vite/client",
+			"node"
 		],
 		"strict": true,// strictFunctionTypes, strictPropertyInitialization 등 포함
 		"noImplicitAny": true,// any타입 금지 여부
